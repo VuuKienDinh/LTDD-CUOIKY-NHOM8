@@ -1,6 +1,6 @@
 # Hệ thống Đặt Vé Xe Khách Trực Tuyến — BusTicketBooking
 
-Dự án **BusTicketBooking** được xây dựng đầy đủ theo tài liệu đặc tả nghiệp vụ [Bao_Cao_Tong_Hop_Cac_Chuc_Nang_He_Thong_Dat_Xe.docx](Bao_Cao_Tong_Hop_Cac_Chuc_Nang_He_Thong_Dat_Xe.docx), bao gồm **ASP.NET Core Web API (.NET 8) + EF Core + SQL Server + SignalR + VNPay Sandbox** và ứng dụng di động **Flutter** hỗ trợ đầy đủ 4 phân hệ: **Customer (Khách hàng & Guest)**, **Bus Operator (Nhà xe Multi-tenant)**, **Driver (Tài xế)** và **Admin (Quản trị hệ thống)**.
+Dự án **BusTicketBooking** được xây dựng đầy đủ theo tài liệu đặc tả nghiệp vụ [Chieu4_Nhom8_UngDungDatVeXe.docx](Chieu4_Nhom8_UngDungDatVeXe.docx) (và tóm tắt chức năng tại [Chieu4_Nhom8_UngDungDatVeXe.txt](Chieu4_Nhom8_UngDungDatVeXe.txt)), bao gồm **ASP.NET Core Web API (.NET 8) + EF Core + SQL Server + SignalR + VNPay Sandbox** và ứng dụng di động **Flutter** hỗ trợ đầy đủ 4 phân hệ: **Customer (Khách hàng & Guest)**, **Bus Operator (Nhà xe Multi-tenant)**, **Driver (Tài xế)** và **Admin (Quản trị hệ thống)**.
 
 ---
 
