@@ -1,111 +1,62 @@
-BÁO CÁO CÁC CHỨC NĂNG ĐÃ THỰC HIỆN ĐƯỢC
+BÁO CÁO CÁC CHỨC NĂNG ĐÃ THỰC HIỆN
+Đồ án: Ứng dụng đặt vé xe khách trực tuyến
 Môn học: Lập trình di động
-Buổi học: Chiều Thứ 4
+Buổi học: Chiều thứ 4
 Nhóm: 8
-Tên đồ án: Ứng dụng Đặt Vé Xe Khách Trực Tuyến (BusTicketBooking)
-Sinh viên thực hiện: Nhóm 8
-Link Github: https://github.com/VuuKienDinh/LTDD-CUOIKY-NHOM8.git (Nhánh: datxe-nhom8)
+Link Github: https://github.com/VuuKienDinh/LTDD-CUOIKY-NHOM8.git (nhánh: datxe-nhom8)
 
-==================================================
-I. CÔNG NGHỆ VÀ NỀN TẢNG SỬ DỤNG
-==================================================
-1. Ứng dụng Di động (Mobile App):
-   - Flutter & Dart (hỗ trợ Android / iOS).
-   - Thiết kế giao diện hiện đại theo chuẩn Shadcn UI theme, tối ưu trải nghiệm người dùng.
-   - Thư viện: Mobile Scanner (quét mã QR), QR Flutter, WebRTC (gọi thoại), Local Notifications, Google Fonts, Lucide Icons.
+I. Công nghệ sử dụng:
+- Ứng dụng di động: Flutter (Dart)
+- Backend API: ASP.NET Core (.NET 8), Entity Framework Core
+- Cơ sở dữ liệu: SQL Server
+- Định vị thời gian thực: SignalR
+- Đàm thoại nội bộ trong app: WebRTC
 
-2. Phía Máy chủ (Backend Web API):
-   - ASP.NET Core Web API (.NET 8.0).
-   - Entity Framework Core (Code First), SQL Server.
-   - SignalR Hub: truyền nhận tọa độ GPS thời gian thực và cập nhật trạng thái chuyến xe.
-   - WebRTC Signaling: xử lý cuộc gọi âm thanh nội bộ trực tiếp trong app.
-   - Background Services: tự động dọn dẹp và giải phóng ghế giữ chỗ quá hạn 10 phút.
-   - Xác thực & Phân quyền: JSON Web Token (JWT) + Refresh Token.
+II. Các chức năng đã làm được:
 
-3. Cổng Quản trị Web (Web Dashboard):
-   - Tích hợp sẵn trong Backend (wwwroot), sử dụng HTML5, Tailwind CSS, Lucide Icons, Chart.js để quản lý và thống kê trên máy tính.
+1. Phân hệ Khách hàng (Customer):
+- Đăng ký tài khoản mới, đăng nhập, đổi mật khẩu và cập nhật thông tin cá nhân.
+- Hỗ trợ chế độ khách vãng lai, xem được chuyến xe và ghế mà chưa cần đăng nhập.
+- Tìm kiếm chuyến xe theo điểm xuất phát, điểm đến và ngày đi.
+- Bộ lọc tìm kiếm theo giá vé, khung giờ, nhà xe và loại xe (ghế ngồi, giường nằm, limousine).
+- Xem sơ đồ ghế 2 tầng và chọn vị trí ghế ngồi trực tiếp.
+- Giữ ghế trong vòng 10 phút có đồng hồ đếm ngược để chống trùng ghế.
+- Áp dụng mã giảm giá khi thanh toán vé.
+- Các hình thức thanh toán: Cổng giả lập VNPay, chuyển khoản ngân hàng và tiền mặt khi lên xe (COD).
+- Quản lý danh sách vé đã đặt và xem chi tiết vé.
+- Vé điện tử có mã QR để tài xế quét soát vé khi lên xe.
+- Theo dõi vị trí xe chạy trực tuyến trên bản đồ theo thời gian thực.
+- Nhắn tin và gọi điện thoại trực tiếp trong app với tài xế/nhà xe.
+- Hủy vé và tự động tính tiền hoàn lại theo thời gian hủy trước giờ chạy.
+- Đánh giá số sao và viết nhận xét sau khi hoàn thành chuyến đi.
+- Gửi yêu cầu khiếu nại, phản hồi chất lượng dịch vụ.
 
-==================================================
-II. DANH SÁCH CÁC CHỨC NĂNG ĐÃ LÀM ĐƯỢC
-==================================================
+2. Phân hệ Tài xế (Driver):
+- Đăng nhập tài khoản tài xế.
+- Xem danh sách các chuyến xe được phân công chạy.
+- Xem danh sách khách đặt vé trên chuyến, vị trí ghế và điểm đón/trả.
+- Quét mã QR trên vé của khách bằng camera điện thoại hoặc nhập mã vé để soát vé.
+- Kiểm tra tính hợp lệ của vé và chặn quét trùng vé.
+- Cập nhật trạng thái chuyến: Đang đón khách, Đang chạy, Đã đến nơi hoặc Báo trễ chuyến kèm lý do.
+- Tự động phát tọa độ GPS định kỳ để hành khách theo dõi vị trí xe.
+- Báo cáo sự cố phát sinh trên đường (tai nạn, hỏng xe, kẹt xe...).
+- Nghe gọi và nhắn tin trao đổi với hành khách trên xe.
 
-1. PHÂN HỆ KHÁCH HÀNG (CUSTOMER & GUEST)
-- Đăng ký tài khoản mới, xác thực thông tin và đăng nhập bằng email/mật khẩu (cấp JWT token).
-- Cập nhật hồ sơ cá nhân (họ tên, số điện thoại, mật khẩu).
-- Hỗ trợ chế độ "Khách vãng lai" (Guest mode): Cho phép xem, tra cứu chuyến xe và sơ đồ ghế mà không bắt buộc phải đăng nhập ngay từ đầu.
-- Hỗ trợ nút đăng nhập nhanh 1-click cho các tài khoản mẫu khi kiểm thử.
-- Tìm kiếm chuyến xe thông minh theo điểm đi, điểm đến và ngày khởi hành.
-- Bộ lọc nâng cao: Lọc chuyến theo khoảng giá vé, khung giờ đi (sáng/trưa/chiều/tối), nhà xe (Phương Trang, Thành Bưởi,...), loại xe (ghế ngồi, giường nằm, limousine) và số lượng chỗ trống.
-- Xem chi tiết hành trình: Lộ trình chạy, danh sách các điểm đón/trả khách cụ thể kèm giờ dự kiến.
-- Sơ đồ chọn ghế trực quan 2 tầng (tầng dưới, tầng trên) theo trạng thái ghế thực tế (Ghế trống, Ghế đang giữ chỗ, Ghế đã bán).
-- Cơ chế Giữ ghế (Seat Hold): Giữ ghế trong vòng 10 phút có đồng hồ đếm ngược trực tiếp trên màn hình, chống tình trạng nhiều người đặt trùng ghế cùng lúc.
-- Áp dụng mã giảm giá / khuyến mãi (Voucher): Nhập mã để được giảm tiền trực tiếp vào đơn hàng (ví dụ: FUTA50K, SINHVIEN30K, GIAM10).
-- Hỗ trợ nhiều phương thức thanh toán:
-  + Cổng giả lập VNPay Sandbox (mô phỏng quét mã QR thanh toán online).
-  + Chuyển khoản ngân hàng.
-  + Thanh toán bằng tiền mặt khi lên xe (COD).
-- Xuất và quản lý Vé điện tử: Xem danh sách vé đã đặt, hiển thị thông tin chi tiết kèm Mã QR bảo mật chống giả mạo để tài xế soát vé.
-- Theo dõi xe thời gian thực (GPS Live Tracking): Xem vị trí hiện tại của xe khách chạy trên đường thông qua SignalR.
-- Gọi điện thoại thoại trực tiếp (In-App Voice Call) giữa hành khách và tài xế qua công nghệ WebRTC ngay trong app.
-- Nhắn tin (Trip Chat) trao đổi nội bộ về chuyến xe giữa hành khách và nhà xe/tài xế.
-- Hủy vé và tính phí hoàn tiền tự động: Hủy vé theo chính sách bậc thời gian (hủy sớm hoàn nhiều tiền, hủy sát giờ phạt phí cao hơn).
-- Đánh giá chuyến đi: Chấm điểm sao (1-5 sao) và viết nhận xét sau khi chuyến xe hoàn thành.
-- Gửi yêu cầu hỗ trợ, thắc mắc hoặc khiếu nại trực tiếp đến ban quản trị/nhà xe.
+3. Phân hệ Quản lý Nhà xe (Bus Operator):
+- Đăng ký mở tài khoản nhà xe mới.
+- Quản lý đội xe: Thêm xe, biển số, loại xe, số lượng ghế, cấu hình sơ đồ ghế 1 tầng hoặc 2 tầng.
+- Quản lý lịch bảo trì, bảo dưỡng xe định kỳ.
+- Quản lý danh sách tài xế và hồ sơ bằng lái xe.
+- Quản lý tuyến đường và thiết lập các điểm dừng đón/trả khách.
+- Lập lịch chuyến xe chạy hàng ngày, kiểm tra tự động chống trùng xe và trùng lịch tài xế.
+- Quản lý đơn vé, xác nhận đã thu tiền mặt COD khi khách lên xe.
+- Đánh dấu khách vắng mặt (No-Show).
+- Tiếp nhận và trả lời phản hồi, khiếu nại của khách hàng.
 
---------------------------------------------------
-
-2. PHÂN HỆ TÀI XẾ (DRIVER)
-- Đăng nhập tài khoản dành riêng cho tài xế.
-- Xem danh sách chuyến xe được phân công lái theo ngày.
-- Xem danh sách chi tiết các hành khách đã đặt vé trên chuyến xe của mình (vị trí ghế, điểm đón, điểm trả, số điện thoại, trạng thái thanh toán).
-- Soát vé điện tử:
-  + Quét mã QR vé của hành khách trực tiếp bằng Camera điện thoại.
-  + Nhập mã vé thủ công để kiểm tra khi camera không quét được.
-  + Hệ thống tự động kiểm tra tính hợp lệ và chặn tuyệt đối hành vi quét trùng vé (chống gian lận).
-- Xem lịch sử soát vé của từng chuyến.
-- Cập nhật tiến độ hành trình chuyến đi: Đang đón khách, Đã khởi hành, Đã đến nơi hoặc Báo trễ chuyến (Delay) kèm ghi chú lý do.
-- Tự động phát tọa độ GPS định kỳ (mỗi 10 giây/lần) về hệ thống để truyền trực tiếp đến màn hình của khách hàng.
-- Báo cáo sự cố trên hành trình: Gửi báo cáo nhanh khi xe gặp trục trặc (tai nạn, hỏng xe, kẹt xe nghiêm trọng) để nhà xe kịp thời xử lý.
-- Nghe và nhận cuộc gọi thoại WebRTC hoặc trả lời tin nhắn từ hành khách trong chuyến.
-
---------------------------------------------------
-
-3. PHÂN HỆ NHÀ XE (BUS OPERATOR - ĐA NHÀ XE MULTI-TENANT)
-- Đăng ký trở thành đối tác nhà xe mới trên hệ thống (chờ Admin phê duyệt).
-- Cơ chế cô lập dữ liệu (Multi-tenant): Mỗi nhà xe chỉ quản lý xe, tài xế, chuyến đi và doanh thu riêng của nhà xe mình, không can thiệp vào nhà xe khác.
-- Quản lý đội xe: Thêm mới xe, cập nhật thông tin xe (biển số, loại xe, số ghế, tiện ích, cấu hình sơ đồ ghế 1 tầng hoặc 2 tầng).
-- Quản lý bảo trì xe: Theo dõi lịch sử và trạng thái bảo dưỡng, sửa chữa định kỳ của từng phương tiện.
-- Quản lý tài xế & hồ sơ chứng chỉ: Thêm mới tài xế, quản lý thông tin bằng lái xe (hạng bằng, ngày hết hạn).
-- Quản lý tuyến đường & trạm dừng: Tạo tuyến đường, thiết lập các điểm đón và điểm trả khách dọc tuyến kèm mốc thời gian di chuyển dự kiến.
-- Lập lịch và điều hành chuyến xe:
-  + Tạo chuyến xe mới: chọn tuyến, chọn xe, phân công tài xế, định giá vé cơ sở.
-  + Kiểm tra logic chặt chẽ khi xếp lịch: Chống trùng lịch xe, chống trùng lịch tài xế, kiểm tra bằng lái xe còn hạn và kiểm tra thời gian quay đầu tối thiểu của xe.
-  + Đổi tài xế khi cần thiết.
-  + Hủy chuyến hàng loạt khi xảy ra sự cố đột xuất.
-- Quản lý nhân viên nhà xe: Phân quyền nhân viên hỗ trợ, nhân viên soát vé.
-- Quản lý doanh thu & đơn đặt vé:
-  + Xác nhận đã thu tiền đối với các đơn hàng chọn thanh toán COD khi hành khách lên xe.
-  + Đánh dấu hành khách vắng mặt (No-Show).
-- Tiếp nhận và xử lý các khiếu nại, phản hồi của hành khách gửi về nhà xe.
-
---------------------------------------------------
-
-4. PHÂN HỆ QUẢN TRỊ VIÊN HỆ THỐNG (ADMIN)
-- Bảng điều khiển (Dashboard) thống kê doanh thu tổng quát: Tách biệt rõ ràng giữa doanh thu thực thu, tiền COD chưa thu và số tiền hoàn vé đã trả cho khách.
-- Quản lý và phê duyệt đối tác nhà xe: Xem xét hồ sơ đăng ký của các nhà xe mới, phê duyệt, từ chối hoặc tạm ngưng hoạt động của nhà xe vi phạm.
-- Quản lý tài khoản người dùng: Khóa hoặc mở khóa tài khoản khách hàng hoặc nhân viên vi phạm quy chế (ví dụ: khách đặt COD nhưng bỏ vé nhiều lần - NoShow).
-- Quản lý hoàn tiền (Refund Management): Tiếp nhận và xử lý duyệt chi tiền hoàn vé cho các đơn vé khách hàng đã hủy hợp lệ.
-- Gửi thông báo toàn hệ thống: Phát thông báo chung đến toàn bộ người dùng app (bảo trì hệ thống, chính sách mới...).
-- Xem nhật ký hệ thống (Audit Log): Ghi nhận lịch sử các thao tác quan trọng trên toàn hệ thống để phục vụ kiểm tra, giám sát.
-- Tự động chạy bộ kiểm thử 12 tiêu chí nghiệm thu nghiệp vụ (AT01 đến AT12) trên hệ thống.
-
-==================================================
-III. ĐÁNH GIÁ CHUNG VỀ DỰ ÁN
-==================================================
-- Hệ thống hoạt động mượt mà, đầy đủ chức năng từ giao diện Mobile đến API Backend và Cơ sở dữ liệu.
-- Giải quyết triệt để các bài toán khó trong thực tế của ngành vận tải hành khách:
-  + Giữ chỗ có thời hạn chống tranh chấp (Seat Hold Concurrency).
-  + Định vị xe theo thời gian thực (SignalR Live GPS Tracking).
-  + Vé điện tử QR code chống giả mạo và chống quét trùng lặp.
-  + Đàm thoại nội bộ WebRTC không tốn cước viễn thông thông thường.
-  + Kiến trúc đa nhà xe Multi-tenant bảo mật và độc lập dữ liệu.
+4. Phân hệ Quản trị viên (Admin):
+- Bảng thống kê tổng quan: Doanh thu, số chuyến xe và số lượng vé bán ra.
+- Xét duyệt hoặc tạm ngưng hoạt động của các nhà xe đối tác.
+- Quản lý tài khoản: Khóa/mở khóa tài khoản khách hàng hoặc nhân sự vi phạm.
+- Xử lý và duyệt các yêu cầu hoàn tiền khi khách hủy vé.
+- Gửi thông báo chung toàn hệ thống đến người dùng.
+- Xem nhật ký các thao tác trên hệ thống (Audit log).
